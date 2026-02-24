@@ -1,0 +1,7 @@
+.banner-carousel { 
+  min-height: 90vh; 
+  border-radius: 16px; 
+  overflow: hidden; 
+  background: linear-gradient(135deg, #FF6A00, #E85D00); 
+  padding: 2rem; 
+}
