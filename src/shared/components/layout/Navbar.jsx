@@ -6,7 +6,7 @@ import { MdOutlineOndemandVideo } from "react-icons/md";
 
 const Navbar = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-custom py-3">
+    <nav className="navbar navbar-expand-lg navbar-custom py-3 px-2">
       <div className="container-fluid">
         <Link className="navbar-brand me-5 ms-2" to="/">AniKH</Link>
 
@@ -31,6 +31,12 @@ const Navbar = () => {
               <NavLink className="nav-link d-flex align-items-center justify-content-center gap-1" to="/anime">
                 <MdOutlineOndemandVideo />
                 Anime
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link d-flex align-items-center justify-content-center gap-1" to="/manga">
+                <MdOutlineOndemandVideo />
+                Manga
               </NavLink>
             </li>
             <li className="nav-item">

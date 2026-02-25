@@ -1,7 +1,7 @@
 import React from "react";
 import Banner from "../banner";
 
-const Anime = () => {
+const Manga = () => {
   return (
     <div>
       <Banner />
@@ -10,4 +10,4 @@ const Anime = () => {
   );
 };
 
-export default Anime;
+export default Manga;
