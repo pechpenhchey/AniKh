@@ -4,6 +4,7 @@ import Navbar from "./shared/components/layout/Navbar";
 import Footer from "./shared/components/layout/Footer";
 import Home from "./features/home/pages/Home";
 import Anime from "./features/anime/pages/Anime";
+import Manga from "./features/manga/pages/Manga";
 import About from "./features/home/pages/About";
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/anime" element={<Anime />} />
+          <Route path="/manga" element={<Manga />} />
           <Route path="/about" element={<About />} />
         </Routes>
       </div>

@@ -1,27 +1,27 @@
 :root {
-  /* ====== Fonts ====== */
+  /* Fonts */
   --font-main: 'Poppins', sans-serif;
   --font-heading: 'Bebas Neue', sans-serif;
 
-  /* ====== Backgrounds ====== */
-  --color-bg-main: #111111;
+  /* Backgrounds */
+  --color-bg-main: #232323;
   --color-bg-surface: #1C1C1C;
   --color-bg-card: #242424;
 
-  /* ====== Brand / Accent ====== */
+  /* Brand / Accent */
   --color-primary: #FF6A00;
   --color-primary-hover: #E85D00;
   --color-secondary: #ea751b;
 
-  /* ====== Text ====== */
+  /* Text */
   --color-text-main: #FFFFFF;
   --color-text-muted: #B0B0B0;
 
-  /* ====== Borders ====== */
+  /* Borders */
   --color-border: #2C2C2C;
 }
 
-/* ====== Global ====== */
+/* Global */
 body {
   margin: 0;
   background-color: var(--color-bg-main);
@@ -35,7 +35,7 @@ h1, h2, h3, .heading-font {
   letter-spacing: 1px;
 }
 
-/* ===== Navbar ===== */
+/* Navbar */
 .navbar-custom {
   background-color: var(--color-bg-surface);
 }
@@ -67,6 +67,7 @@ h1, h2, h3, .heading-font {
 .navbar-custom .navbar-toggler-icon {
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%23FF7A00' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
+
 /* Buttons */
 .btn-navbar {
   background-color: var(--color-primary);
@@ -81,4 +82,61 @@ h1, h2, h3, .heading-font {
 
 .btn-navbar:hover {
   background-color: var(--color-primary-hover);
+}
+
+.card-text-bg{
+  background-color: var(--color-primary);
+  color: white;
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-size: 26px;
+  font-family: var(--font-main);
+  transition: 0.2s ease;
+}
+
+.media-card {
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.5s ease, border 0.5s ease, box-shadow 0.5s ease;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.media-card-image {
+  height: 300px;
+  overflow: hidden;
+  position: relative;
+}
+
+.media-card .media-img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.media-card .media-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 1.8rem;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.media-card:hover {
+  border: 5px solid orange;
+  transform: scale(1.03);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.media-card:hover .media-img {
+  transform: scale(1.1);
+}
+
+.media-card:hover .media-overlay {
+  opacity: 1;
 }
