@@ -3,17 +3,23 @@ import Banner from "../Banner";
 import MediaSection from "../../../shared/components/layout/CardSection";
 import { useAnimeStore } from "../../../app/api/anime/core/slice";
 import { useMangaStore } from "../../../app/api/manga/slice";
+import "../styles/Home.css";
 
 const Home = () => {
   const { topAnime, getTopAnime } = useAnimeStore();
   const { topManga, getTopManga } = useMangaStore();
 
-  const totalCard = 6;
+  const totalCard = 10;
 
   useEffect(() => {
-    getTopAnime();
-    getTopManga();
-  }, []);
+    if (!topAnime?.length) {
+      getTopAnime();
+    }
+
+    if (!topManga?.length) {
+      getTopManga();
+    }
+  }, [topAnime, topManga]);
 
   return (
     <div>
@@ -28,6 +34,7 @@ const Home = () => {
           limit={totalCard}
           onSeeMore={() => console.log("Go to Anime Page")}
           cardProps={{
+            detailPath: "anime",
             imageKey: "images.jpg.large_image_url",
             titleKey: "title_english",
             scoreKey: "score",
@@ -44,6 +51,7 @@ const Home = () => {
           limit={totalCard}
           onSeeMore={() => console.log("Go to Manga Page")}
           cardProps={{
+            detailPath: "manga",
             imageKey: "images.jpg.large_image_url",
             titleKey: "title_english",
             scoreKey: "score",

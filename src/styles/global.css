@@ -15,6 +15,7 @@
 
   /* Text */
   --color-text-main: #FFFFFF;
+  --color-text-secondary: #FF6A00;
   --color-text-muted: #B0B0B0;
 
   /* Borders */
@@ -128,7 +129,7 @@ h1, h2, h3, .heading-font {
 }
 
 .media-card:hover {
-  border: 5px solid orange;
+  border: 5px solid var(--color-primary);
   transform: scale(1.03);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }

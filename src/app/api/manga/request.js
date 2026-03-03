@@ -1,5 +1,14 @@
 import axios from "axios";
 
-const API_BASE = "https://api.jikan.moe/v4";
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE,
+});
 
-export const getTopManga = () => axios.get(`${API_BASE}/top/manga`);
+export const getTopManga = async () => {
+  try {
+    return await api.get("/top/manga");
+  } catch (error) {
+    console.error("API Error:", error.response?.status);
+    throw error;
+  }
+};

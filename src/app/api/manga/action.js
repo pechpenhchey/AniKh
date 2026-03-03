@@ -1,7 +1,6 @@
-import { getTopManga, } from "./request";
+import { getTopManga } from "./request";
 
-export const fetchTopManga = async (setState) => {
+export const fetchTopManga = async () => {
   const res = await getTopManga();
-  setState(res.data.data);
+  return res.data.data;
 };
-

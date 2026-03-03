@@ -1,23 +1,28 @@
 import { Container, Row, Col, Dropdown } from "react-bootstrap";
-import "./styles/home.css";
 
 const Banner = () => {
   return (
-    <div className="banner-carousel d-flex align-items-center">
+    <div className="banner-carousel d-flex align-items-center py-5">
       <Container>
         <Row className="align-items-center">
+          
+          {/* Text Column */}
           <Col md={5}>
             <div className="text-white">
               <h1 className="fw-bold display-4">
-                Discover Amazing Anime, Manga, Novel
+                Discover Amazing Anime, Manga, and Novels
               </h1>
               <p className="mt-3 fs-5">
                 Explore top trending anime, manga, and novels all in one place.
               </p>
             </div>
-            
+
             <Dropdown className="mt-3">
-              <Dropdown.Toggle variant="light" size="lg" className="fw-semibold">
+              <Dropdown.Toggle
+                variant="light"
+                size="lg"
+                className="fw-semibold"
+              >
                 Browse Now
               </Dropdown.Toggle>
 
@@ -29,14 +34,16 @@ const Banner = () => {
             </Dropdown>
           </Col>
 
-          <Col md={7} className="text-center mt-3">
+          {/* Image Column */}
+          <Col md={7} className="text-center mt-3 mt-md-0">
             <img
               src="https://wallpapers.com/images/featured/anime-all-characters-hd-4r9pb6ju4v1b0m48.jpg"
               alt="Banner"
               className="img-fluid banner-img"
-              style={{ borderRadius: "20px" }}
+              style={{ borderRadius: "20px", maxHeight: "500px", objectFit: "cover" }}
             />
           </Col>
+
         </Row>
       </Container>
     </div>

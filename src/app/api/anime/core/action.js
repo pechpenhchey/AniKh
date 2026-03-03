@@ -1,7 +1,12 @@
-import { getTopAnime, } from "./request";
+import { getTopAnime } from "./request";
 
-export const fetchTopAnime = async (setState) => {
-  const res = await getTopAnime();
-  setState(res.data.data);
+// Fetch Top Anime
+export const fetchTopAnime = async () => {
+  try {
+    const res = await getTopAnime();
+    return res.data.data;
+  } catch (error) {
+    console.error("API Error (Top Anime):", error.response?.status);
+    throw error;
+  }
 };
-

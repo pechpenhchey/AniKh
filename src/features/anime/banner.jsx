@@ -5,15 +5,20 @@ import Loader from "../../shared/components/layout/Loading";
 import "../home/styles/home.css";
 
 const Banner = () => {
-  const { topAnime, getTopAnime } = useAnimeStore();
+  const { topAnime, getTopAnime, loading } = useAnimeStore();
 
   useEffect(() => {
-    getTopAnime();
-  }, []);
+    if (!topAnime?.length && !loading) {
+      getTopAnime();
+    }
+  }, [topAnime, loading, getTopAnime]);
 
   if (!topAnime || topAnime.length === 0)
     return (
-      <div className="banner d-flex justify-content-center align-items-center" style={{ height: "500px" }}>
+      <div
+        className="banner d-flex justify-content-center align-items-center"
+        style={{ height: "500px" }}
+      >
         <Loader text="Loading Top Anime..." fullHeight={false} />
       </div>
     );
@@ -27,9 +32,13 @@ const Banner = () => {
           <Container fluid className="h-100">
             <Row className="h-100 align-items-center">
               <h1 className="text-center text-light p-1 mb-3">Top 10 Animes</h1>
+
               <Col lg={5} className="d-flex justify-content-center position-relative">
                 {!anime.images?.jpg?.large_image_url ? (
-                  <div className="w-100 d-flex justify-content-center align-items-center" style={{ height: "500px" }}>
+                  <div
+                    className="w-100 d-flex justify-content-center align-items-center"
+                    style={{ height: "500px" }}
+                  >
                     <Loader text="" fullHeight={false} />
                   </div>
                 ) : (
@@ -47,6 +56,7 @@ const Banner = () => {
                 <h1 className="text-white display-4 fw-bold">{anime.title_english}</h1>
                 <h3 className="text-white fw-normal">{anime.title}</h3>
                 <p className="text-white lead mt-2">{anime.synopsis?.substring(0, 200)}...</p>
+
                 <div className="d-flex flex-wrap gap-2 mt-2">
                   <button className="btn btn-warning btn-sm">{anime.rating}</button>
                   <button className="btn btn-warning btn-sm">Score: {anime.score}</button>
@@ -55,7 +65,10 @@ const Banner = () => {
                   <button className="btn btn-warning btn-sm">Status: {anime.status}</button>
                   <button className="btn btn-warning btn-sm">{anime.year}</button>
                 </div>
-                <p className="text-white mt-2">Genres: {anime.genres.map((g) => g.name).join(", ")}</p>
+
+                <p className="text-white mt-2">
+                  Genres: {anime.genres?.map((g) => g.name).join(", ")}
+                </p>
               </Col>
             </Row>
           </Container>

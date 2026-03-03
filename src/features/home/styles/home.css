@@ -5,3 +5,11 @@
   background: linear-gradient(135deg, #FF6A00, #E85D00); 
   padding: 2rem; 
 }
+
+/* Force 5 columns on large screens */
+@media (min-width: 1200px) {
+  .media-col {
+    flex: 0 0 20%;
+    max-width: 20%;
+  }
+}
