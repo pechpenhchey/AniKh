@@ -43,7 +43,7 @@ const MediaSection = ({
             ))
           : limitedItems.map((item, index) => (
               <Col
-                key={item?.mal_id || index}
+                key={`${item?.mal_id}-${index}`}
                 xs={6}
                 sm={4}
                 md={3}

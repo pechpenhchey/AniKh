@@ -36,39 +36,6 @@ h1, h2, h3, .heading-font {
   letter-spacing: 1px;
 }
 
-/* Navbar */
-.navbar-custom {
-  background-color: var(--color-bg-surface);
-}
-
-.navbar-custom .navbar-brand {
-  font-family: var(--font-heading);
-  font-size: 1.8rem;
-  color: var(--color-primary);
-}
-
-.navbar-custom .navbar-brand:hover {
-  color: var(--color-primary-hover);
-}
-
-.navbar-custom .nav-link {
-  color: #ffffff !important;
-  font-family: var(--font-main);
-  font-weight: 500;
-  transition: 0.2s ease;
-}
-
-.navbar-custom .nav-link:hover {
-  color: var(--color-primary) !important;
-}
-
-.navbar-custom .nav-link.active {
-  color: var(--color-secondary) !important;
-}
-.navbar-custom .navbar-toggler-icon {
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%23FF7A00' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-}
-
 /* Buttons */
 .btn-navbar {
   background-color: var(--color-primary);

@@ -24,7 +24,7 @@ const AnimeRecommendations = ({ recommendations, loading }) => {
       loading={loading}
       empty={flat.length === 0}
     >
-      <Row xs={3} sm={4} md={6} className="g-3">
+      <Row xs={2} sm={3} md={4} lg={6} className="g-2 g-sm-3">
         {flat.slice(0, 12).map((r) => (
           <Col key={r.mal_id}>
             <MediaCard

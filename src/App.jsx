@@ -7,6 +7,8 @@ import Anime from "./features/anime/pages/Anime";
 import Manga from "./features/manga/pages/Manga";
 import About from "./features/home/pages/About";
 import AnimeDetail from "./features/anime/detailAnime";
+import Schedule from "./features/schedule/pages/Schedule";
+import Search from "./features/search/pages/search";
 import NotFound from "./features/error404/pages/error404";
 
 // Scrolls to top on every route change
@@ -28,8 +30,10 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/anime" element={<Anime />} />
           <Route path="/anime/:id" element={<AnimeDetail />} />
+          <Route path="/schedule" element={<Schedule />} />
           <Route path="/manga" element={<Manga />} />
           <Route path="/about" element={<About />} />
+          <Route path="/search" element={<Search />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
