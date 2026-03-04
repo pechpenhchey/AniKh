@@ -4,7 +4,7 @@ const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE,
 });
 
-// Global Request Queue
+// ── Queue ──────────────────────────────────────────────
 const queue = [];
 let isProcessing = false;
 
@@ -20,7 +20,7 @@ const processQueue = async () => {
     } catch (err) {
       reject(err);
     }
-    if (queue.length > 0) await delay(400); // 400ms between each request
+    if (queue.length > 0) await delay(1200); // safe for Jikan 3 req/sec
   }
   isProcessing = false;
 };
@@ -31,9 +31,9 @@ const enqueue = (fn) =>
     processQueue();
   });
 
-// API helpers
 const get = (url, params) => enqueue(() => api.get(url, params));
 
+// ── Anime ──────────────────────────────────────────────
 // Top Anime
 export const getTopAnime = () => get("/top/anime");
 
@@ -53,8 +53,17 @@ export const getAnimeVideos = (id) => get(`/anime/${id}/videos`);
 // Recommendations
 export const getAnimeRecom = (id) => get(`/anime/${id}/recommendations`);
 
-// Search / paginated anime
-export const getTotalAnime = async (page = 1) => {
-  const res = await get("/anime", { params: { q: "", page } });
-  return res.data;
-};
+// Anime list — used for both browse (empty query) and search
+export const getAnime = (query = "", page = 1) =>
+  get("/anime", { params: { q: query, page } });
+
+// Seasonal Anime
+export const getSeasonalAnime = () => get("/seasons/now");
+
+// Schedule
+export const getSchedule = (day) =>
+  get("/schedules", { params: { filter: day } });
+
+// Manga list — used for both browse and search
+export const getManga = (query = "", page = 1) =>
+  get("/manga", { params: { q: query, page } });

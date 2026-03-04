@@ -42,6 +42,7 @@ const TotalAnime = () => {
         loading={loading}
         limit={30}
         cardProps={{
+          detailPath: "anime",
           imageKey: "images.jpg.large_image_url",
           titleKey: "title_english",
           scoreKey: "score",

@@ -6,30 +6,39 @@ import noImage from "../../../shared/assets/no-img.jpg";
 const extractVideos = (videos) => {
   if (!videos || typeof videos !== "object") return [];
 
-  const promos = Array.isArray(videos.promo) ? videos.promo.map((v, i) => ({
-    id: `promo-${i}`,
-    title: v.title ?? "Trailer",
-    image_url:
-      v.trailer?.images?.maximum_image_url ||
-      v.trailer?.images?.large_image_url ||
-      v.trailer?.images?.image_url ||
-      null,
-    youtube_id: v.trailer?.youtube_id || null,
-  })) : [];
+  const promos = Array.isArray(videos.promo)
+    ? [...videos.promo].reverse().map((v, i) => ({
+        id: `promo-${i}`,
+        title: v.title ?? "Trailer",
+        image_url:
+          v.trailer?.images?.maximum_image_url ||
+          v.trailer?.images?.large_image_url ||
+          v.trailer?.images?.image_url ||
+          null,
+        youtube_id: v.trailer?.youtube_id || null,
+      }))
+    : [];
 
-  const episodes = Array.isArray(videos.episodes) ? videos.episodes.map((v, i) => ({
-    id: `episode-${i}`,
-    title: v.title ?? `Episode ${i + 1}`,
-    image_url: v.images?.jpg?.image_url || null,
-    youtube_id: v.youtube_id || null,
-  })) : [];
+  const episodes = Array.isArray(videos.episodes)
+    ? [...videos.episodes].reverse().map((v, i) => ({
+        id: `episode-${i}`,
+        title: v.title ?? `Episode ${i + 1}`,
+        image_url: v.images?.jpg?.image_url || null,
+        youtube_id: v.youtube_id || null,
+      }))
+    : [];
 
-  const musicVideos = Array.isArray(videos.music_videos) ? videos.music_videos.map((v, i) => ({
-    id: `music-${i}`,
-    title: v.title ?? "Music Video",
-    image_url: v.video?.images?.jpg?.image_url || v.video?.images?.maximum_image_url || null,
-    youtube_id: v.video?.youtube_id || null,
-  })) : [];
+  const musicVideos = Array.isArray(videos.music_videos)
+    ? [...videos.music_videos].reverse().map((v, i) => ({
+        id: `music-${i}`,
+        title: v.title ?? "Music Video",
+        image_url:
+          v.video?.images?.jpg?.image_url ||
+          v.video?.images?.maximum_image_url ||
+          null,
+        youtube_id: v.video?.youtube_id || null,
+      }))
+    : [];
 
   return [...promos, ...episodes, ...musicVideos];
 };
