@@ -27,6 +27,7 @@
   background-color: var(--color-bg-surface);
   border-bottom: 1px solid var(--color-border);
   position: relative;
+  z-index: 99;
 }
 
 .navbar-custom .navbar-brand {

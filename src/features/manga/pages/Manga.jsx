@@ -1,10 +1,10 @@
 import React from "react";
-import Banner from "../banner";
+import MangaBanner from "../banner";
 
 const Manga = () => {
   return (
     <div>
-      <Banner />
+      <MangaBanner />
 
     </div>
   );

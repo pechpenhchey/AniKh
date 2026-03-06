@@ -88,8 +88,13 @@ const AnimeHero = ({ anime }) => {
                   {scored_by && <div className="hero-score-by">by {scored_by} users</div>}
                 </div>
               )}
-              <StatBox label="Status"   value={anime.status?.replace(" Airing", "") ?? "N/A"} />
-              <StatBox label="Episodes" value={anime.episodes ?? "?"} />
+              <StatBox label="Status" value={
+                anime.status === "Currently Airing" ? "Airing" :
+                anime.status === "Finished Airing" ? "Finished" :
+                anime.status === "Not Yet Aired" ? "Upcoming" :
+                anime.status === "Unknown" ? "Unknown" :
+                anime.status ?? "N/A"
+              } />
               <StatBox label="Duration" value={anime.duration?.replace(" per ep", "") ?? "N/A"} />
               {season && <StatBox label="Season" value={season} />}
               <StatBox label="Rating"   value={anime.rating?.split(" - ")[0] ?? "N/A"} />

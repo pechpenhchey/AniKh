@@ -1,0 +1,82 @@
+.seasonal-page {
+  background: var(--color-bg-main);
+  min-height: 100vh;
+  border-radius: 20px;
+  padding: 40px 0;
+}
+
+.seasonal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.seasonal-title {
+  color: var(--color-text-main);
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  margin-bottom: 4px;
+}
+
+.seasonal-subtitle {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  font-family: var(--font-main);
+}
+
+.seasonal-count {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  font-family: var(--font-main);
+}
+
+.seasonal-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--color-text-muted);
+  font-family: var(--font-main);
+}
+
+.seasonal-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 32px;
+  flex-wrap: wrap;
+}
+
+.seasonal-page-btn {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  font-family: var(--font-main);
+  cursor: pointer;
+  transition: all 0.2s;
+  min-width: 36px;
+}
+
+.seasonal-page-btn:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  color: var(--color-text-main);
+}
+
+.seasonal-page-btn.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+.seasonal-page-btn:disabled {
+  color: var(--color-border);
+  cursor: not-allowed;
+}
+
+.seasonal-ellipsis {
+  color: var(--color-border);
+  padding: 0 4px;
+}

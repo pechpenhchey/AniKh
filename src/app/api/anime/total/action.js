@@ -2,7 +2,7 @@ import { getAnime } from "../core/request";
 
 export const fetchTotalAnime = async (page = 1) => {
   try {
-    const res = await getAnime("", page);
+    const res = await getAnime({ q: "", page });
     return {
       data: res.data.data,
       total: res.data.pagination?.items?.total ?? 0,

@@ -12,7 +12,7 @@ const dropdownMenus = {
     { label: "Airing Schedule", path: "/schedule", icon: <MdCalendarMonth /> },
   ],
   manga: [
-    { label: "All Manga", path: "/manga", icon: <GiBookCover /> },
+    { label: "All Manga/Light Novel", path: "/manga-novel", icon: <GiBookCover /> },
   ],
 };
 
@@ -126,10 +126,10 @@ const Navbar = () => {
             />
 
             <NavDropdown
-              label="Manga"
+              label="Manga/Light Novel"
               icon={<GiBookCover />}
               menuKey="manga"
-              path="/manga"
+              path="/manga-novel"
             />
 
             <li className="nav-item">
@@ -147,7 +147,7 @@ const Navbar = () => {
             <form className="navbar-search" onSubmit={handleSearch}>
               <input
                 type="text"
-                placeholder="Search anime, manga..."
+                placeholder="Search anime, manga and novel..."
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
               />
@@ -155,7 +155,7 @@ const Navbar = () => {
                 <FaSearch size={13} />
               </button>
             </form>
-            <button className="btn-navbar">Login</button>
+            <button className="btn-navbar" onClick={() => navigate("/login")}>Login</button>
           </div>
 
         </div>
