@@ -1,43 +1,30 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect } from "react";
 import MediaSection from "../../shared/components/layout/CardSection";
 import { useTotalAnimeStore } from "../../app/api/anime/total/slice";
 
-const TotalAnime = () => {
-  const { totalAnimeList, currentPage, lastPage, fetchPage, loading, error } =
+const TotalAnime = ({ page = 1, onPageChange, topRef }) => {
+  const { totalAnimeList, lastPage, fetchPage, loading, error } =
     useTotalAnimeStore();
 
-  const [inputPage, setInputPage] = useState(currentPage);
-  const topRef = useRef(null);
-  const isFirstRender = useRef(true);
-
   useEffect(() => {
-    fetchPage(currentPage);
-  }, []);
+    fetchPage(page).then(() => {
+      if (page > 1 && topRef?.current) {
+        window.scrollTo({ top: topRef.current.offsetTop - 80, behavior: "smooth" });
+      }
+    });
+  }, [page]);
 
-  useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
-    setInputPage(currentPage);
-    if (topRef.current) {
-      window.scrollTo({ top: topRef.current.offsetTop - 80, behavior: "smooth" });
-    }
-  }, [currentPage]);
-
-  const goToPage = (page) => {
-    let val = Number(page);
-    if (!val || val < 1) val = 1;
-    if (val > lastPage) val = lastPage;
-    if (val !== currentPage) fetchPage(val);
+  const goToPage = (val) => {
+    let p = Number(val);
+    if (!p || p < 1) p = 1;
+    if (p > lastPage) p = lastPage;
+    if (p !== page) onPageChange?.(p);
   };
 
   return (
-    <div className="py-3">
-      <div ref={topRef} />
-
+    <div className="py-3 mb-3">
       <MediaSection
-        title={"All Anime - Page " + currentPage}
+        title={"All Anime - Page " + page}
         items={totalAnimeList}
         loading={loading}
         limit={30}
@@ -54,8 +41,8 @@ const TotalAnime = () => {
       <div className="d-flex justify-content-center gap-3 mt-4 align-items-center">
         <button
           className="btn-anime-page"
-          onClick={() => goToPage(currentPage - 1)}
-          disabled={currentPage === 1 || loading}
+          onClick={() => goToPage(page - 1)}
+          disabled={page === 1 || loading}
         >
           Prev
         </button>
@@ -66,10 +53,9 @@ const TotalAnime = () => {
             className="anime-page-input"
             min={1}
             max={lastPage}
-            value={inputPage}
-            onChange={(e) => setInputPage(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && goToPage(inputPage)}
-            onBlur={() => goToPage(inputPage)}
+            value={page}
+            onChange={(e) => goToPage(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && goToPage(e.target.value)}
           />
           <span style={{ color: "var(--color-text-muted)", fontSize: "0.85rem", whiteSpace: "nowrap" }}>
             of {lastPage}
@@ -78,8 +64,8 @@ const TotalAnime = () => {
 
         <button
           className="btn-anime-page"
-          onClick={() => goToPage(currentPage + 1)}
-          disabled={currentPage === lastPage || loading}
+          onClick={() => goToPage(page + 1)}
+          disabled={page === lastPage || loading}
         >
           Next
         </button>

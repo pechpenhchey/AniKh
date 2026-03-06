@@ -1,80 +1,135 @@
-import React, { useEffect } from "react";
-import { Carousel, Container, Row, Col, Image } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAnimeStore } from "../../app/api/anime/core/slice";
 import Loader from "../../shared/components/layout/Loading";
-import "../home/styles/home.css";
+import "./styles/banner.css";
 
 const Banner = () => {
   const { topAnime, getTopAnime, loading } = useAnimeStore();
+  const [active, setActive] = useState(0);
+  const [animating, setAnimating] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (!topAnime?.length && !loading) {
-      getTopAnime();
-    }
-  }, [topAnime, loading, getTopAnime]);
+    if (!topAnime?.length && !loading) getTopAnime();
+  }, []);
 
-  if (!topAnime || topAnime.length === 0)
+  useEffect(() => {
+    if (!topAnime?.length) return;
+    const timer = setInterval(() => goTo((active + 1) % top5.length), 5000);
+    return () => clearInterval(timer);
+  }, [active, topAnime]);
+
+  if (!topAnime?.length) {
     return (
-      <div
-        className="banner d-flex justify-content-center align-items-center"
-        style={{ height: "500px" }}
-      >
+      <div className="banner-loading">
         <Loader text="Loading Top Anime..." fullHeight={false} />
       </div>
     );
+  }
 
-  const top10 = topAnime.slice(0, 10);
+  const top5 = topAnime.slice(0, 5);
+  const anime = top5[active];
+
+  const goTo = (idx) => {
+    if (animating) return;
+    setAnimating(true);
+    setTimeout(() => {
+      setActive(idx);
+      setAnimating(false);
+    }, 300);
+  };
 
   return (
-    <Carousel fade className="banner-carousel">
-      {top10.map((anime) => (
-        <Carousel.Item key={anime.mal_id} className="banner-item">
-          <Container fluid className="h-100">
-            <Row className="h-100 align-items-center">
-              <h1 className="text-center text-light p-1 mb-3">Top 10 Animes</h1>
+    <div className="banner-root">
 
-              <Col lg={5} className="d-flex justify-content-center position-relative">
-                {!anime.images?.jpg?.large_image_url ? (
-                  <div
-                    className="w-100 d-flex justify-content-center align-items-center"
-                    style={{ height: "500px" }}
-                  >
-                    <Loader text="" fullHeight={false} />
-                  </div>
-                ) : (
-                  <Image
-                    src={anime.images.jpg.large_image_url}
-                    alt={anime.title_english}
-                    rounded
-                    fluid
-                    style={{ maxHeight: "500px", border: "5px solid rgba(255,255,255,0.3)" }}
-                  />
-                )}
-              </Col>
+      {/* BG image blur */}
+      <div
+        className={`banner-bg ${animating ? "fade-out" : "fade-in"}`}
+        style={{ backgroundImage: `url(${anime.images?.jpg?.large_image_url})` }}
+      />
+      <div className="banner-overlay" />
 
-              <Col lg={6}>
-                <h1 className="text-white display-4 fw-bold">{anime.title_english}</h1>
-                <h3 className="text-white fw-normal">{anime.title}</h3>
-                <p className="text-white lead mt-2">{anime.synopsis?.substring(0, 200)}...</p>
+      {/* Content */}
+      <div className={`banner-content ${animating ? "fade-out" : "fade-in"}`}>
 
-                <div className="d-flex flex-wrap gap-2 mt-2">
-                  <button className="btn btn-warning btn-sm">{anime.rating}</button>
-                  <button className="btn btn-warning btn-sm">Score: {anime.score}</button>
-                  <button className="btn btn-warning btn-sm">Rank: {anime.rank}</button>
-                  <button className="btn btn-warning btn-sm">Ep: {anime.episodes}</button>
-                  <button className="btn btn-warning btn-sm">Status: {anime.status}</button>
-                  <button className="btn btn-warning btn-sm">{anime.year}</button>
-                </div>
+        {/* Left */}
+        <div className="banner-info">
+          <div className="banner-rank">#{anime.rank} Ranked</div>
 
-                <p className="text-white mt-2">
-                  Genres: {anime.genres?.map((g) => g.name).join(", ")}
-                </p>
-              </Col>
-            </Row>
-          </Container>
-        </Carousel.Item>
-      ))}
-    </Carousel>
+          <h1 className="banner-title">
+            {anime.title_english || anime.title}
+          </h1>
+
+          {anime.title_english && anime.title !== anime.title_english && (
+            <p className="banner-title-jp">{anime.title}</p>
+          )}
+
+          <p className="banner-synopsis">
+            {anime.synopsis?.substring(0, 180)}...
+          </p>
+
+          <div className="banner-tags">
+            {anime.genres?.slice(0, 3).map((g) => (
+              <span key={g.mal_id} className="banner-tag">{g.name}</span>
+            ))}
+          </div>
+
+          <div className="banner-stats">
+            <div className="banner-stat">
+              <span className="banner-stat-value">⭐ {anime.score}</span>
+              <span className="banner-stat-label">Score</span>
+            </div>
+            <div className="banner-stat-divider" />
+            <div className="banner-stat">
+              <span className="banner-stat-value">{anime.episodes ?? "?"}</span>
+              <span className="banner-stat-label">Episodes</span>
+            </div>
+            <div className="banner-stat-divider" />
+            <div className="banner-stat">
+              <span className="banner-stat-value">{anime.year ?? "?"}</span>
+              <span className="banner-stat-label">Year</span>
+            </div>
+            <div className="banner-stat-divider" />
+            <div className="banner-stat">
+              <span className="banner-stat-value">{anime.status}</span>
+              <span className="banner-stat-label">Status</span>
+            </div>
+          </div>
+
+          <div className="banner-actions">
+            <button
+              className="banner-btn-primary"
+              onClick={() => navigate(`/anime/${anime.mal_id}`)}
+            >
+              View Details
+            </button>
+          </div>
+        </div>
+
+        {/* Right — Poster */}
+        <div className="banner-poster-wrap">
+          <img
+            src={anime.images?.jpg?.large_image_url}
+            alt={anime.title_english || anime.title}
+            className="banner-poster"
+          />
+        </div>
+
+      </div>
+
+      {/* Dots */}
+      <div className="banner-dots">
+        {top5.map((_, i) => (
+          <button
+            key={i}
+            className={`banner-dot ${i === active ? "active" : ""}`}
+            onClick={() => goTo(i)}
+          />
+        ))}
+      </div>
+
+    </div>
   );
 };
 

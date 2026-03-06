@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import Banner from "../Banner";
+import HomeBanner from "../Banner";
 import MediaSection from "../../../shared/components/layout/CardSection";
 import useHomeData from "../components/home/useHomeData";
 import { TOTAL_CARDS, TOTAL_CARDS_Season, animeCardProps, mangaCardProps, seasonalCardProps, useHomeNavigation } from "../components/home/homeConfig";
@@ -24,7 +24,7 @@ const Home = () => {
 
   return (
     <div>
-      <Banner />
+      <HomeBanner />
 
       <div className="py-3">
 

@@ -14,11 +14,7 @@ export const useAnimeDetailStore = create((set, get) => ({
   episodes: [],
   episodePage: 1,
   episodeHasNextPage: false,
-
-  // Fix: initialize as null (object shape) instead of [] (array)
-  // so we can distinguish "not yet fetched" from "fetched but empty"
   videos: null,
-
   recommendations: [],
 
   loadingFull: false,
@@ -31,8 +27,8 @@ export const useAnimeDetailStore = create((set, get) => ({
   error: null,
 
   fetchFull: async (id) => {
-    const { loadingFull, currentId } = get();
-    if (loadingFull || currentId === id) return;
+    const { loadingFull } = get();
+    if (loadingFull) return;
 
     set({ loadingFull: true, error: null });
     try {
@@ -46,8 +42,8 @@ export const useAnimeDetailStore = create((set, get) => ({
   },
 
   fetchCharacters: async (id) => {
-    const { loadingCharacters, currentId, characters } = get();
-    if (loadingCharacters || (currentId === id && characters.length > 0)) return;
+    const { loadingCharacters } = get();
+    if (loadingCharacters) return;
 
     set({ loadingCharacters: true, error: null });
     try {
@@ -61,8 +57,8 @@ export const useAnimeDetailStore = create((set, get) => ({
   },
 
   fetchEpisodes: async (id) => {
-    const { loadingEpisodes, currentId, episodes } = get();
-    if (loadingEpisodes || (currentId === id && episodes.length > 0)) return;
+    const { loadingEpisodes } = get();
+    if (loadingEpisodes) return;
 
     set({ loadingEpisodes: true, error: null });
     try {
@@ -100,17 +96,12 @@ export const useAnimeDetailStore = create((set, get) => ({
   },
 
   fetchVideos: async (id) => {
-    const { loadingVideos, videos } = get();
-
-    // Fix: guard on videos !== null instead of currentId + videos.length
-    // Previously: currentId === id blocked fetching because fetchFull already set currentId
-    // Previously: videos.length was always undefined since videos was [] not an object
-    if (loadingVideos || videos !== null) return;
+    const { loadingVideos } = get();
+    if (loadingVideos) return;
 
     set({ loadingVideos: true, error: null });
     try {
       const data = await fetchAnimeVideos(id);
-      // data shape: { promo: [...], episodes: [...], music_videos: [...] }
       set({ videos: data ?? { promo: [], episodes: [], music_videos: [] } });
     } catch {
       set({ error: "Failed to fetch videos" });
@@ -120,8 +111,8 @@ export const useAnimeDetailStore = create((set, get) => ({
   },
 
   fetchRecommendations: async (id) => {
-    const { loadingRecom, currentId, recommendations } = get();
-    if (loadingRecom || (currentId === id && recommendations.length > 0)) return;
+    const { loadingRecom } = get();
+    if (loadingRecom) return;
 
     set({ loadingRecom: true, error: null });
     try {

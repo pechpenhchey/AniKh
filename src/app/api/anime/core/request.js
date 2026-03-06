@@ -53,9 +53,9 @@ export const getAnimeVideos = (id) => get(`/anime/${id}/videos`);
 // Recommendations
 export const getAnimeRecom = (id) => get(`/anime/${id}/recommendations`);
 
-// Anime list — used for both browse (empty query) and search
-export const getAnime = (query = "", page = 1) =>
-  get("/anime", { params: { q: query, page } });
+// Anime list — used for both browse, search and filters
+export const getAnime = (params = {}) =>
+  get("/anime", { params });
 
 // Seasonal Anime
 export const getSeasonalAnime = () => get("/seasons/now");
@@ -65,5 +65,5 @@ export const getSchedule = (day) =>
   get("/schedules", { params: { filter: day } });
 
 // Manga list — used for both browse and search
-export const getManga = (query = "", page = 1) =>
-  get("/manga", { params: { q: query, page } });
+export const getManga = (params = {}) =>
+  get("/manga", { params: { ...params } });

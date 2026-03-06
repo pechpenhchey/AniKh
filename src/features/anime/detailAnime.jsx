@@ -38,12 +38,17 @@ const AnimeDetail = () => {
   } = useAnimeDetailStore();
 
   useEffect(() => {
-    clearDetail();
-    fetchFull(id);
-    fetchCharacters(id);
-    fetchEpisodes(id);
-    fetchVideos(id);
-    fetchRecommendations(id);
+    const load = async () => {
+      clearDetail();
+      await fetchFull(id);
+      await fetchCharacters(id);
+      await fetchVideos(id);
+      await fetchEpisodes(id);
+      await fetchRecommendations(id);
+    };
+    load();
+
+    return () => clearDetail();
   }, [id]);
 
   if (loadingFull || !animeDetail) {

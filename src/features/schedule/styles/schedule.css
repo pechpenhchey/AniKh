@@ -7,6 +7,7 @@
 @media (min-width: 576px) { .schedule-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (min-width: 768px) { .schedule-grid { grid-template-columns: repeat(4, 1fr); } }
 @media (min-width: 992px) { .schedule-grid { grid-template-columns: repeat(5, 1fr); } }
+@media (min-width: 1200px) { .schedule-grid { grid-template-columns: repeat(6, 1fr); } }
 
 /* Day Tabs */
 .schedule-day-tab {
@@ -92,13 +93,4 @@
 .schedule-count span {
   color: var(--color-text-main);
   text-transform: capitalize;
-}
-
-/* Page Wrapper */
-.schedule-wrapper {
-  background: var(--color-bg-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 16px;
-  padding: 32px;
-  margin: 24px 0;
 }
